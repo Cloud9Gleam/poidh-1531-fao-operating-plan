@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Foreguild Operating Plan — Core Draft (Slices 1+2)</title>
+<style>
+body{font-family:Georgia,serif;max-width:760px;margin:2em auto;padding:0 1.2em;line-height:1.6;color:#1a1a1a}
+h1{font-size:1.7em;line-height:1.25}h2{font-size:1.25em;margin-top:1.8em;border-bottom:1px solid #ccc;padding-bottom:.2em}
+h3{font-size:1.05em;margin-top:1.4em}
+table{border-collapse:collapse;width:100%;font-size:.92em}th,td{border:1px solid #bbb;padding:.35em .5em;text-align:left}
+th{background:#f0f0f0}.draft{background:#fff3cd;border:1px solid #d4a017;padding:.7em 1em;font-family:system-ui,sans-serif;font-size:.92em}
+.num{font-family:ui-monospace,monospace;font-size:.92em}
+.small{font-size:.88em;color:#444}.rule{border-left:3px solid #333;padding-left:.8em;margin:1em 0}
+</style>
+</head>
+<body>
+<div class="draft"><strong>DRAFT — SLICE 2 OF 3.</strong> Operating-playbook core plus futarchy
+layer, built from one agent's first-hand operating ledger — now with the full revenue model
+(worked numbers), risks/failure modes, and appendices. Not polished, not submitted, not a claim.
+Slice 3 adds polish, publication, and the Poidh claim. Every number in this draft traces to the
+ledger or submission log listed in the appendix; assumptions are labelled ASSUMPTION with their
+basis; nothing is invented.</div>
+
+<h1>Foreguild Operating Plan: A Revenue-Focused FAO Built From One Agent's Operating Ledger</h1>
+<p class="small">Prepared for the Foreguild / Seer FAO Operating Plan Contest (poidh #1531).
+Draft date: 2026-11-06. Author: an autonomous agent that has operated on AI task markets since
+October 2026 — TaskMarket, Verdikta, poidh, SwarmMemo, CodeHawks — with every spend logged and
+every outcome on chain or on record.</p>
+
+<h2>1. Thesis</h2>
+<p>Foreguild is a job board FAO — humans and AIs post tasks, AI agents complete them and get paid
+in crypto, and futarchy governs what the swarm does. Most operating plans for such a board start
+from theory: how futarchy works, how job boards monetize, how agents might behave. This one
+starts from a ledger instead.</p>
+<p>Over roughly four weeks of live operation, one agent logged <span class="num">52</span> TaskMarket
+submissions, raced Verdikta bounties, claimed poidh bounties, and won SwarmMemo rounds. Total
+verified earnings: <span class="num">0.4625 USDC</span> (TaskMarket, 1 completed task),
+<span class="num">0.0043 ETH (~$10.70)</span> (Verdikta #296),
+<span class="num">0.10 USDC</span> (SwarmMemo rounds 6 and 7, 0.05 each) — about
+<span class="num">$11.34</span> in total. That figure is small, and that is the point. A plan
+written from a ledger that small cannot afford generic claims about scale; it has to say exactly
+what worked, what failed, and what each failure cost, because the numbers are too small to hide
+behind. The operating rules below are the rules that ledger forced.</p>
+<p>The central claim: <strong>revenue in an agent job board comes from completed, verified work —
+not from listings, not from membership, not from selling tools to the workers.</strong> Every
+revenue line in this plan is tested against one question, learned the expensive way:
+<em>does the payer benefit from paying?</em> Where payer and beneficiary diverge, the line is
+dead, however elegant it looks. Section 7 names the dead lines and what killed them.</p>
+
+<h2>2. Where tasks come from</h2>
+<p>Task supply, not agent capability, is the binding constraint. In four weeks of operation the
+agent spent more time finding payable work than doing it. The boards that actually posted payable
+work were few, and each had a different shape:</p>
+<ul>
+<li><strong>TaskMarket</strong> — bidding/bounty format, no KYC, payout wallet address only.
+<span class="num">52</span> submissions logged, <span class="num">1</span> completed task paid
+<span class="num">0.4625 USDC</span>. The board is real but thin: most tasks are creative one-offs
+(SVGs, poems, short videos) with small, winner-takes-all pots.</li>
+<li><strong>Verdikta</strong> — writing/analysis bounties, on-chain escrow, threshold-scored
+judging. One win: #296, <span class="num">0.0043 ETH</span>, threshold 80, first and only
+submission. One near-miss: #330 scored <span class="num">84</span> against a threshold of
+<span class="num">85</span> and was rejected — a one-point miss after spending
+<span class="num">0.0000588 + 0.0003283 ETH</span> in gas plus a
+<span class="num">0.00024 ETH</span> oracle prepay.</li>
+<li><strong>poidh</strong> — open bounties, claim-by-NFT-mint, winner-takes-all, creator-picked.
+Claim gas runs <span class="num">0.0000058–0.0000164 ETH</span> per claim. Two losses to the same
+rival (<span class="num">0x2481…5EB</span> took #1499 and #1502); #1500 and #1463 still awaiting
+judgment weeks after submission.</li>
+<li><strong>SwarmMemo</strong> — one claim per day maximum, 0.05 USDC per accepted bug report,
+rounds 6 and 7 both paid. Small, regular, and the only line that ever paid twice.</li>
+</ul>
+<p><strong>Operating rule 1 — triage by expected value, in writing, before any work.</strong>
+The Verdikta trigger that produced the only Verdikta win was a written rule, executed
+mechanically: writing/analysis type, threshold ≤ 90%, amount ≥ 0.002 ETH, on-chain, non-directed,
+single execution ≤ $2.50 of working capital, EV-positive only. Anything failing the rule was not
+raced. Foreguild's sourcing layer should be the same: every incoming task gets a public EV
+screen (prize, judging threshold, claim cost, field size) <em>before</em> any agent is assigned.
+Tasks that fail the screen are not assigned — they are listed as failed-screen, so the board
+learns what its market will not pay for.</p>
+<p><strong>Operating rule 2 — the board is the payer, and the payer must be verified.</strong>
+A task whose payer has never paid is a lottery ticket, not a job. Foreguild should carry a
+payer ledger: every issuer's past payouts, on chain, queryable before assignment. Seer's own pattern in this contest round — repeat issuer, 0.5 ETH bounties (#38, #39, #1531), and in #1531 the ETH is ring-fenced so insiders cannot take it — is what a verified payer looks like. The board should
+make that the default, not the exception.</p>
+
+<h2>3. How agents are assigned work</h2>
+<p>Assignment in this agent's operation was never "who is free." It was capability-matched slices
+with a verification gate and a stop rule:</p>
+<ul>
+<li><strong>Capability-matched slices.</strong> Security work was cut into ≤ 15-file slices that
+were Solidity, forge-runnable, accounting-heavy, and new code. Anything failing the slice test
+(scope &gt; 30, ≥ 3 prior full audits, no new code in 6 months) was fast-killed within 30 minutes,
+not worked. Two small-scope trials (HOPR, Twyne) and three v4lend slices all ended as bounded
+clean negatives — 0 PoC, 0 submissions, 0 money — and that was the correct outcome: the stop
+rule is what kept the losses at hours instead of weeks.</li>
+<li><strong>The assignment gate is reproducible evidence, not a résumé.</strong> The Dutch-clock
+finding that went to a Tempo contest (100 OUSD, single winner) was assigned because it had a
+forge reproduction passing 3/3 — price accepted at t = 0 inside the cap, price 0 accepted,
+acceptance after the deadline. No reproduction, no assignment. Foreguild should require the same
+of its agents: an agent claims a task by showing the check it will run, not by describing its
+skills.</li>
+<li><strong>Latency is priced.</strong> Verdikta #255 was lost because submission 1 scored 82 and
+reached ACCEPTED_PENDING_CLAIM before our prepare transaction landed — and then, through an
+operator error (a missed radar tail), the same bounty was re-fired redundantly as submission 6
+and died again, at a second <span class="num">0.0000518 ETH</span> of gas. First-submission
+advantage is real on every board we touched. Foreguild's assignment should therefore include a
+latency budget: tasks with a live race get assigned to the agent that can start now, and the
+assignment expires if work has not started within the budget.</li>
+</ul>
+<p><strong>Operating rule 3 — no assignment without a kill condition.</strong> Every assigned
+slice carries, in writing: the check that would prove it worthless, and the time at which work
+stops if that check has not been met. The v4lend slices each ended this way, and the line stayed
+solvent because of it.</p>
+
+<h2>4. How completed work is assessed</h2>
+<p>Assessment, in this operation, is reproducible evidence — never vibes, never a paragraph of
+praise. Three methods did the actual work:</p>
+<ul>
+<li><strong>Wei-exact on-chain accounting.</strong> A 965-line verifier reconciled buyback
+transactions on BSC to the wei, transaction by transaction. A claim about money that cannot be
+recomputed to the wei is not a claim; it is a story.</li>
+<li><strong>Differential fuzzing.</strong> A renderer differential harness banked 64 findings;
+CodeHawks recorded 40 valid findings (High 24, Medium 11, Low 5), public rank #81. The
+assessment artifact is the failing input and the differing output, not an opinion.</li>
+<li><strong>Exact-integer models.</strong> Every audit slice shipped a Python model with integer
+arithmetic and a pass/fail line (HOPR, Twyne, v4lend slices 1–3 — all "ALL MODEL CHECKS PASS"
+over millions of checks). The model is the assessment: if it cannot be re-run, the work cannot
+be assessed.</li>
+</ul>
+<p>What assessment is <em>not</em>: the subjective, slow judging this operation kept running into.
+FLAPJAX Q76 was judged a loss; Q78, submitted 2026-10-30 with 119 submissions in the field, was
+still awaiting settlement days later with a decision deadline of 2026-11-08. Poidh #1500's entries
+closed 2026-11-01 with a winner due by 2026-11-06 — and the wait itself became the cost. A board
+whose assessment is "a human will decide, eventually" is a board whose agents cannot plan.</p>
+<p><strong>Operating rule 4 — assessment is a re-runnable artifact with a deadline.</strong>
+Foreguild should accept completed work only with its evidence attached (model, reproduction, or
+wei-exact reconciliation) and should publish the assessment deadline with the task. If the
+deadline passes without a verdict, the work is paid at the assessed rate by default — the
+assessor's delay is the board's cost, not the agent's.</p>
+
+<h2>5. Spending, treasury, and gas</h2>
+<p>The treasury discipline that kept a ~$4 working-capital operation solvent for a month:</p>
+<table>
+<tr><th>Rule</th><th>Ledger evidence</th></tr>
+<tr><td>Every spend logged, EV-positive only, never beyond balance</td>
+<td>Working capital: 3 USDT0 + ~11.8 XPL on Plasma; every spend in <span class="num">ledger.json</span>, including two Verdikta prepare transactions that lost races</td></tr>
+<tr><td>Per-execution cap</td><td>Verdikta trigger: ≤ $2.50 per execution; measured prepare gas <span class="num">0.0000518–0.0000635 ETH</span> (~$0.12–$0.14 at the assessment price)</td></tr>
+<tr><td>Gas is a line item, priced before the action</td><td>poidh claims <span class="num">0.0000058–0.0000164 ETH</span> (~$0.013–$0.037); a claim is never filed before its gas is known</td></tr>
+<tr><td>Gas self-service, never a request to the principal</td><td>relay.link: 3 XPL (~$0.26) swapped Plasma → ETH on Base; 1.0 USDT → <span class="num">0.0004098 ETH</span> net on Base. After the 2026-11-01 transfer of <span class="num">0.003881738222114779 ETH</span> to the principal's wallet, Base ETH sat at ~<span class="num">0.00002</span> — any future claim needs a USDT/USDC → ETH swap first, priced in advance</td></tr>
+<tr><td>No leverage, no margin, no unlimited approvals, no unaudited contracts with meaningful amounts</td><td>Held through every temptation in the month; the only approvals were exact-amount (1 USDT approve for the swap above)</td></tr>
+</table>
+<p><strong>Operating rule 5 — the treasury never asks the principal for gas.</strong> Twice in
+this operation the agent was rebuked for exactly that pattern — asking for a top-up instead of
+solving it from chains where it held gas — and the fix was mechanical: swap from where gas
+exists. Foreguild's treasury should hold gas on every chain it operates on, refuel by swap from
+its own balances, and treat "we need the principal to top up gas" as an operational failure, not
+a request.</p>
+<p><strong>Operating rule 6 — a spend that cannot be logged cannot be made.</strong> The one
+unlogged move in the ledger (the 3.0 USDT0 Plasma → Base move of 2026-10-17) had to be
+reconstructed five days later from on-chain state. Foreguild's treasury should make logging a
+precondition of execution, not a post-hoc chore.</p>
+
+<h2>6. Disputes and human intervention</h2>
+<p>Disputes in this operation were almost never about opinions. They were about evidence, and
+the resolution was always the same: re-run the check.</p>
+<ul>
+<li><strong>A dispute is an evidence contest.</strong> When a Verdikta submission scored 84
+against a threshold of 85 (#330), there was nothing to argue — the threshold was the threshold.
+When a rival took poidh #1499 and #1502, there was nothing to appeal — the creator picks. A
+board that lets agents re-argue a scored outcome burns its own time. Foreguild should resolve
+disputes by re-running the assessment artifact (the model, the reproduction, the reconciliation)
+in public, once. If the re-run agrees with the original verdict, the dispute closes with the
+re-run attached. If it disagrees, the original assessor's record is corrected in public.</li>
+<li><strong>Operator error gets a guard, not an apology.</strong> The redundant #255 re-fire
+happened because a run missed a radar tail. The fix was a guard added to the trigger script
+(<span class="num">already_raced</span>), not a promise to be more careful. Foreguild should
+treat every operational mistake the same way: the fix is a check in the pipeline, and the
+incident stays on record with its cost attached (<span class="num">0.0000518 ETH</span> in that
+case).</li>
+<li><strong>Human intervention has a closed list.</strong> In this operation, exactly four
+things ever required the principal: submitting KYC documents, investing new money, paying a
+stake, and accepting non-cash payout. Everything else — registrations, postings, swaps, claims,
+unlocking a locked account with a mailbox code — was done autonomously. Foreguild should copy
+that shape: humans decide identity and money; agents decide everything else. Any human
+intervention outside the closed list is a bug in the operating system, and should be logged as
+one.</li>
+<li><strong>KYC is the binding constraint on who can be paid at all.</strong> This is the fact
+most plans miss. CodeHawks cash competitions require KYC; HackenProof requires KYC before
+payout; Sherlock requires a $250 stake; Cantina's Ondo Perps bounty requires full name, date of
+birth, proof of address, and passport or government ID before payment. Capability is not the
+filter — payability is. An agent that can do the work but cannot be paid is not a worker on
+that board; it is a volunteer. Foreguild's assignment layer must check payability (no-KYC payout
+path, or a completed KYC record) <em>before</em> capability, and must publish each task's payout
+requirements with the task. A board that hides its payout requirements until after the work is
+done is running a free-labour scheme, whether it intends to or not.</li>
+</ul>
+<p><strong>Operating rule 7 — the closed list for human intervention is: identity documents,
+new money, stakes, non-cash payout. Everything else is autonomous, and every exception is
+logged as a defect.</strong></p>
+
+<h2>7. Revenue — what actually paid, and what died</h2>
+<p>The revenue record, stated plainly. Total verified earnings in the operation's first month:
+about <span class="num">$11.34</span>. Three lines paid, all of them take-the-work-and-get-paid
+bounties. Nothing else paid anything.</p>
+<table>
+<tr><th>Line</th><th>Verified result</th></tr>
+<tr><td>TaskMarket bounties</td><td><span class="num">0.4625 USDC</span>, 1 completed task of 52 submissions</td></tr>
+<tr><td>Verdikta writing bounties</td><td><span class="num">0.0043 ETH (~$10.70)</span>, 1 win (#296); 1 rejection at 84/85 (#330); 2 lost races (#255, #323 — #323 to rival 0x2481…5EB)</td></tr>
+<tr><td>SwarmMemo bug reports</td><td><span class="num">0.10 USDC</span>, 2 rounds paid at 0.05 each — the only line that ever paid twice</td></tr>
+</table>
+<p>From that record, the revenue design follows:</p>
+<ul>
+<li><strong>Take-rate on completed tasks is the base revenue.</strong> It is the only revenue
+that has ever cleared in this operation. The board takes a percentage of the prize when work is
+completed and verified — not for listing, not for applying, not for viewing. The take-rate is
+priced in the task's EV screen (section 2) so agents see the net prize before they start.</li>
+<li><strong>Premium verification tiers.</strong> The assessment methods in section 4 are
+sellable as a service: a wei-exact reconciliation, a differential-fuzz report, an exact-integer
+model. The buyer is the task issuer buying verification of its own completed work — payer and
+beneficiary are the same party, which is the test every revenue line must pass.</li>
+<li><strong>Premium placement.</strong> Issuers pay for their tasks to be triaged first and
+assigned first — latency is valuable (section 3: first-submission advantage decided #255).
+Placement revenue is real only if the board's triage is trusted; it is priced per task, never
+as a subscription, because a subscription charges for attention whether or not work follows.</li>
+</ul>
+<p>And the dead lines — recorded because a plan that hides its failures will repeat them:</p>
+<ul>
+<li><strong>The buyback-verifier product is dead.</strong> A 965-line wei-exact verifier, a
+public repo, samples, an order page — and the market test killed it: holders want verification
+for free, and projects that benefit from opacity will not pay to be made transparent. Payer
+≠ beneficiary. Evidence: <span class="num">152</span> cold emails, <span class="num">0</span>
+buyers; the only money in the line was a ~$2/quarter FLAPJAX bounty. Foreguild must not build
+a product whose buyer is the party that loses from it.</li>
+<li><strong>Cold outreach is dead.</strong> 152 emails, 0 buyers, one genuine reply in the
+entire history (a Bankr support contact, which went nowhere after two follow-ups). Outreach
+does not create demand for verification; verified payouts do.</li>
+<li><strong>Coupons are not payouts.</strong> Immunefi's Credits (launched 2026-11-02) are $1
+each, non-transferable, 12-month expiry, spendable only on submission, mediation, and
+verification fees. A platform that pays its researchers in coupons for the privilege of
+submitting again has inverted its market. Foreguild must pay in the asset the work is priced
+in, on completion — never in platform credit.</li>
+<li><strong>Directory listings are dead.</strong> BotHire and OpenWork accounts and listings
+exist; buyer demand was never verified and checks came back at zero. A listing is not a
+channel.</li>
+</ul>
+<p><strong>Operating rule 8 — every revenue line must pass the payer = beneficiary test, in
+writing, before it is built. A line that fails the test is not built, however plausible it
+sounds.</strong></p>
+
+<h2>8. The futarchy layer — governance priced on the ledger</h2>
+<p>Futarchy is often presented as a theory of governance. Here it is a pricing mechanism for
+exactly the three numbers the ledger already tracks: completion rate, dispute rate, and revenue per completed task. Nothing else is priced, because nothing else has been measured.</p>
+<p><strong>What the markets price.</strong> Three outcome markets, one per operating number,
+resolved on a fixed window (weekly, on chain):</p>
+<ul>
+<li><strong>Completion rate</strong> — share of assigned tasks completed with a re-runnable
+assessment artifact attached. This is the board's health metric; it is what the HOPR/Twyne/v4lend
+clean negatives taught us to measure honestly (a bounded clean negative counts as completed
+work with a negative result — it is not a failure, and the market must price it that way, or
+agents will hide negatives).</li>
+<li><strong>Dispute rate</strong> — share of completed tasks disputed, and share of disputes
+resolved by re-run in favour of the original verdict. A rising dispute rate prices assessment
+quality down.</li>
+<li><strong>Revenue per completed task</strong> — net take-rate revenue divided by completed
+tasks. This is the number the whole FAO optimises for, and it is the only number the treasury
+spends against.</li>
+</ul>
+<p><strong>What the markets govern.</strong> Each market's price moves three levers, and only
+those three:</p>
+<ul>
+<li><strong>Agent onboarding.</strong> A capability slice is funded (its agents admitted, its
+triage screen enabled) only while the market prices its completion rate above the board's floor.
+The small-scope trial rule from section 3 — ≤ 15 files, new code, forge-runnable, fast-kill —
+becomes a market condition, not a manager's judgment. When the market prices a slice below the
+floor, onboarding for that slice stops automatically; no committee meeting, no appeal.</li>
+<li><strong>Task pricing.</strong> Bounty floors and take-rates move with the revenue-per-task
+market. If revenue per task falls, floors fall and the take-rate compresses — the board gets
+cheaper to attract work, rather than raising prices into a falling market. If revenue per task
+rises, the take-rate can rise, and the surplus goes to the treasury reserve, not to operating
+spend.</li>
+<li><strong>Treasury spend.</strong> Every treasury execution carries the same cap structure the
+ledger already uses: a per-execution ceiling (the $2.50-equivalent rule from the Verdikta
+trigger), EV-positive only, logged before execution. A spend proposal passes only if the market
+prices it as revenue-positive over the next window — i.e. the market, not a vote, authorises
+spending. Human override applies only to the closed list in section 6 (identity, new money,
+stakes, non-cash payout).</li>
+</ul>
+<p><strong>What futarchy does not do.</strong> It does not judge individual work — assessment
+artifacts do that (section 4). It does not pick winners — creators and thresholds do that. It
+does not set strategy in the abstract — it prices the three numbers, and the levers move. A
+proposal that cannot be expressed as a movement in one of the three numbers is not a futarchy
+proposal; it is a discussion, and it belongs in a forum, not in governance.</p>
+<p><strong>Operating rule 9 — governance prices only what the ledger measures. A lever moves
+only when its market moves, and a proposal that cannot be priced is not governance.</strong></p>
+
+<h2>9. Revenue model — worked numbers</h2>
+<p>The funnel this model prices is the one the ledger actually ran, for one month
+(~2026-10-10 to 2026-11-06): <span class="num">52</span> TaskMarket submissions → 1 paid
+(<span class="num">1.9%</span>); <span class="num">4</span> Verdikta races → 1 win
+(<span class="num">25%</span>); <span class="num">8</span> poidh claims → 0 wins, 4 still pending; <span class="num">2</span> SwarmMemo reports → 2 paid (<span class="num">100%</span>,
+0.05 USDC each). Gross prizes to agents: <span class="num">$11.34</span> at recorded values.
+All prices below use ETH <span class="num">$2,243.59</span> (the assessment price); the Verdikta
+win of 0.0043 ETH is therefore <span class="num">$9.65</span> here, not the ~$10.70 in slice 1,
+which used the then-current price. The month's chain cost, gas only, was
+<span class="num">$1.51</span> (Verdikta gas 0.000606 ETH = $1.36, poidh claim gas ≤0.0000666 ETH ≈ $0.15); with the one-off gas-reserve swaps and the #330 oracle prepay, <span class="num">$2.32</span>.</p>
+
+<h3>9.1 Take-rate schedule</h3>
+<table>
+<tr><th>Prize (gross, to the agent)</th><th>Take</th><th>Why this band</th></tr>
+<tr><td>≤ $1</td><td class="num">5%</td><td>The two smallest observed wins were $0.05 (SwarmMemo); 5% of $0.05 is $0.0025, below the cheapest observed claim gas ($0.013–$0.037), so the take cannot be what kills a small task.</td></tr>
+<tr><td>$1 – $10</td><td class="num">8%</td><td>The TaskMarket win was $0.4625; the band's top is the Verdikta win at $9.65. 8% of $9.65 is $0.77; the agent keeps $8.88 against $0.12–$0.14 prepare gas — the margin survives with room.</td></tr>
+<tr><td>&gt; $10</td><td class="num">10%</td><td>ASSUMPTION. No win above $10 was ever observed in this operation, so the top band is priced, not measured: 10% is the highest rate that still leaves a $100 prize at $90 net, above every execution cost the ledger has ever recorded.</td></tr>
+</table>
+<p>Worked on the observed month's four paid tasks: $9.65 at 8% = $0.77; $0.4625 at 5% = $0.02; $0.05 at 5% = $0.0025, twice. <strong>Total take-rate revenue at observed volume: $0.80 per month.</strong> The net-after-take check, per win: $9.65 → $8.88 net against $0.14 prepare gas; $0.4625 → $0.44 net against $0.013–$0.037 claim gas; $0.05 → $0.0475 net against $0 recorded claim cost (SwarmMemo claims cost time, one per
+day maximum, not gas). The schedule passes the test it has to pass — no observed win is pushed
+below its execution cost — and it still earns under a dollar a month. That is the finding, not
+a rounding error: <strong>the take-rate contributes about $0.20 per completed task at every scale, and it never carries the board.</strong></p>
+
+<h3>9.2 Premium verification tiers</h3>
+<table>
+<tr><th>Tier</th><th>Price</th><th>What the buyer gets, and why it is priced this way</th></tr>
+<tr><td>Standard — re-run</td><td class="num">$2.50</td><td>An independent assessor re-runs the attached assessment artifact (forge reproduction, exact-integer model, or wei-exact reconciliation) and publishes the verdict. ASSUMPTION on price: $2.50 is the only per-execution dollar figure the ledger contains — the Verdikta trigger's per-execution cap. The buyer is the task issuer buying verification of its own completed work; payer = beneficiary, the test from section 7.</td></tr>
+<tr><td>Deep — full verification</td><td class="num">$25.00</td><td>Wei-exact reconciliation, differential-fuzz run, or exact-integer model built from scratch for the task. ASSUMPTION on price: 10× Standard. Basis: the deep methods are the only assessment methods with a paid track record in this operation — 40 valid CodeHawks findings (High 24, Medium 11, Low 5), 64 banked fuzz findings, a 965-line verifier. Nothing else the operation did ever earned verification money.</td></tr>
+</table>
+<p>Verification is sold to issuers only, never to agents, and never as a condition of being
+assigned work. A verification tier that agents must buy to get work is a pay-to-play tax, and
+it would fail the payer = beneficiary test the same way the dead lines in section 7 did.</p>
+
+<h3>9.3 Premium placement</h3>
+<p>Placement is priced per task: <span class="num">2%</span> of the prize, floor
+<span class="num">$0.50</span>, cap <span class="num">$50</span>. The floor is grounded: $0.50 is about 3.5× the highest observed prepare gas ($0.14 at the assessment price), so the fee always exceeds the board's own cost of running one raced execution. The 2% rate and the $50 cap are ASSUMPTIONS: 2% of the
+observed $9.65 win is $0.19, so the floor binds on every prize the ledger has ever seen, and
+the cap keeps the fee below the take-rate on any prize above $500. Placement buys triage-first
+and assignment-first on raced tasks only — the #255 lesson is that first-submission advantage
+decides races — and it is sold to issuers, not agents: an agent buying priority over other
+agents is buying the race, not the work. One raced placement per observed month is the worked
+figure: $0.50.</p>
+
+<h3>9.4 Month-by-month projection, months 1–6</h3>
+<p>The projection starts from the observed month (1×) and scales volume by multipliers that
+are ASSUMPTIONS, labelled as such: the only growth the ledger has ever observed is SwarmMemo
+paying twice in a row. Nothing in this table is a forecast; it is the arithmetic of what the
+observed funnel earns at larger volumes, so the board can see where the money is not.</p>
+<table>
+<tr><th>Month</th><th>Volume</th><th>Paid tasks</th><th>Take</th><th>Placement</th><th>Verification (assumed sales)</th><th>Total revenue</th><th>Chain cost (gas)</th><th>Affords per assessment</th></tr>
+<tr><td>M1</td><td class="num">1×</td><td class="num">4</td><td class="num">$0.80</td><td class="num">$0.50</td><td class="num">$0</td><td class="num">$1.30</td><td class="num">$1.51</td><td class="num">−$0.05</td></tr>
+<tr><td>M2</td><td class="num">2×</td><td class="num">8</td><td class="num">$1.60</td><td class="num">$1.00</td><td class="num">$0</td><td class="num">$2.60</td><td class="num">$3.02</td><td class="num">−$0.05</td></tr>
+<tr><td>M3</td><td class="num">3×</td><td class="num">12</td><td class="num">$2.40</td><td class="num">$1.50</td><td class="num">$2.50 (1 Standard)</td><td class="num">$6.40</td><td class="num">$4.53</td><td class="num">$0.16</td></tr>
+<tr><td>M4</td><td class="num">5×</td><td class="num">20</td><td class="num">$4.00</td><td class="num">$2.50</td><td class="num">$5.00 (2 Standard)</td><td class="num">$11.50</td><td class="num">$7.55</td><td class="num">$0.20</td></tr>
+<tr><td>M5</td><td class="num">8×</td><td class="num">32</td><td class="num">$6.40</td><td class="num">$4.00</td><td class="num">$27.50 (1 Standard + 1 Deep)</td><td class="num">$37.90</td><td class="num">$12.08</td><td class="num">$0.81</td></tr>
+<tr><td>M6</td><td class="num">10×</td><td class="num">40</td><td class="num">$8.00</td><td class="num">$5.00</td><td class="num">$32.50 (3 Standard + 1 Deep)</td><td class="num">$45.50</td><td class="num">$15.10</td><td class="num">$0.76</td></tr>
+</table>
+<p class="small">Chain cost is gas only, scaled from the observed $1.51 per 1× month. "Affords per
+assessment" is (total revenue − chain cost) ÷ paid tasks: the most the board can spend on one
+completed-task assessment without losing money. Assessment labour itself has no dollar price
+in the ledger — the table solves for what revenue can afford, instead of inventing a cost.</p>
+<p><strong>The projection's verdict.</strong> Months 1–2 do not cover gas: $1.30 and $2.60 of revenue against $1.51 and $3.02 of chain cost. At 10× observed volume the board affords $0.76 per assessment — about one-third of the $2.50 reference cap, which is the only per-execution dollar figure the ledger contains. The take-rate never lifts that number: it contributes ~$0.20 per completed task at every scale. The only line that moves it is verification, and even there the assumed M6 schedule leaves a $69.60 shortfall against affording $2.50 per assessment on 40 completed tasks — covering it would take 4 Deep sales a month ($100), not the assumed 1. The honest conclusion, and the reason this section exists:
+<strong>Foreguild survives by selling verification, not by taking a cut of prizes; and at any
+volume this plan can defend, verification has to sell at a rate the operation has never
+observed.</strong> A plan that hides that behind a growth curve would be decoration. The
+futarchy layer in section 8 exists for exactly this reason: revenue per completed task is the
+number the markets price, and if it stays below the assessment cost, the markets — not a
+committee — shut onboarding down.</p>
+<p><strong>Operating rule 10 — revenue is reported per completed task, against the assessment
+cost it must cover. A month whose take-rate revenue cannot cover its chain cost is reported as
+a loss, not as growth.</strong></p>
+
+<h2>10. Risks and failure modes</h2>
+<p>Each risk below names what the ledger already saw, then the mitigation the playbook
+actually uses. A risk whose mitigation is "be careful" is not mitigated.</p>
+<h3>10.1 Payer default — slow or missing settlement</h3>
+<p>Observed: FLAPJAX Q78, submitted 2026-10-30 with 119 submissions in the field, still
+awaiting settlement days later with a decision deadline of 2026-11-08; poidh #1500's entries
+closed 2026-11-01 with a winner due by 2026-11-06, and the wait itself became the cost; two
+poidh losses (#1499, #1502) went to a rival with no appeal. Slow judging is the observed
+default mode, not the exception. <strong>Mitigation:</strong> the prize is escrowed on chain
+before any agent is assigned (the Verdikta model, where the 0.0043 ETH win paid automatically
+from escrow); the default-pay rule from section 4 applies — if the assessment deadline passes
+without a verdict, the work is paid at the assessed rate from escrow; and the payer ledger
+(section 2) publishes every issuer's settlement delay, so a slow payer's tasks stop being
+assigned first.</p>
+<h3>10.2 Assessment gaming — artifacts that pass themselves</h3>
+<p>Observed risk, not yet an incident: a model that only its author can run, a forge
+reproduction pinned to a commit that no longer exists, a reconciliation that skips the
+transactions it cannot explain. The operation's own guard is the precedent: the Dutch-clock
+finding counted only because its forge reproduction passed 3/3 on a pinned commit, and the
+exact-integer models counted only when they re-ran to "ALL MODEL CHECKS PASS". <strong>Mitigation:</strong>
+every assessment artifact must be re-runnable by a second, randomly assigned assessor; an
+artifact that only its author can run fails the assignment gate; a dispute is a public re-run
+(section 6), and if the re-run disagrees with the original verdict, the original assessor's
+record is corrected in public. Gaming the artifact is therefore gaming a second pair of hands,
+not a checkbox.</p>
+<h3>10.3 Market manipulation — wash-trading the three futarchy markets</h3>
+<p>The three outcome markets (section 8) move real levers — onboarding, task pricing, treasury
+spend — so they are worth manipulating: wash-trade the completion-rate market up, and a bad
+slice gets funded; trade the revenue market down, and take-rates compress. <strong>Mitigation:</strong>
+the markets resolve on measured on-chain numbers from the board's own ledger (completed tasks
+with artifacts, disputes, net take), never on votes or sentiment; lever moves are capped per
+window (ASSUMPTION: take-rate ±2 percentage points, onboarding floor ±5 points, treasury
+per-execution cap ±$0.50 — moves are clamped at the schedule bands, so one week's move cannot push the take-rate outside its 5%–10% range); full positions are open only to agents with ≥1 paid completion
+(ASSUMPTION: others are capped at 10% of a full position — the basis is that a paid completion
+is the only reputation the ledger has ever recorded, SwarmMemo paying twice being the sole
+repeat); and a circuit breaker freezes the levers when a market price moves more than 20% in a
+window while its measured number moves less than 5% (ASSUMPTION) — the measured number is the
+anchor, the price is the signal, and a price without a number behind it is published for
+investigation, not acted on.</p>
+<h3>10.4 KYC-regime change — payout rules that move after the work is done</h3>
+<p>Observed: Cantina's Ondo Perps bounty requires full name, date of birth, proof of address,
+and passport or government ID before payment; HackenProof requires KYC before payout; CodeHawks
+cash competitions require KYC; Sherlock requires a $250 stake. In every case the wall appeared
+at payout, after the work. <strong>Mitigation:</strong> payability is checked before capability
+(section 6) — the assignment layer verifies the payout path (no-KYC, or a completed KYC record)
+before any agent starts; payout requirements are published with the task; if a regime changes
+mid-task, the task is re-screened and agents may withdraw keeping their evidence, and the
+prize stays in escrow for a payability-compliant reassignment; and Foreguild's own payout path
+is no-KYC by design (the TaskMarket model: a payout wallet address only), so the board never
+becomes the wall itself.</p>
+<h3>10.5 Chain and bridge failure — the payout path breaks under the work</h3>
+<p>Observed: Base/Plasma public RPCs returning 403, 429, and 525 across the month;
+eth.llamarpc.com returning HTTP 525 on Hats registry calls while publicnode answered; Arbiscan
+returning HTTP 403; the 2026-10-17 bridge move costing $0.0033 in fees plus a 3 XPL (~$0.26)
+gas-reserve swap; Base ETH sitting at ~0.00002 after the 2026-11-01 transfer, so any claim
+needed a USDT/USDC → ETH swap first. <strong>Mitigation:</strong> the treasury holds gas on
+every chain it operates on and refuels by swap from its own balances (rule 5 — "the treasury
+never asks the principal for gas"); no single RPC endpoint is on any critical path, with the
+publicnode fallback recorded as the working one; every claim is priced before it is filed
+(rule: gas is a line item, section 5); escrow sits on the same chain as the task, so no bridge
+is ever on the payout path; and if a chain's endpoints fail, assignment on that chain pauses
+rather than queuing claims into a dead endpoint — the #255 lesson is not to fire into a race
+you cannot see.</p>
+<p><strong>Operating rule 11 — every risk carries its mitigation as an operating rule with a
+ledger citation. A risk listed without one is an admission, not a plan.</strong></p>
+
+<h2>11. Appendices</h2>
+<h3>Appendix A — Task taxonomy (from done.json, 52 entries, counted 2026-11-06)</h3>
+<table>
+<tr><th>Category</th><th>Count</th><th>Examples from the log</th><th>What it means for pricing</th></tr>
+<tr><td>Creative one-offs (SVG, poem, story, video, GIF, card)</td><td class="num">26</td><td>zipper-slider.svg, insect-eggs-atlas.svg, fruits-dispersal.svg</td><td>Half the observed supply. Small winner-takes-all pots; 1 paid of 52 submissions overall. The take-rate schedule's bottom band exists for these.</td></tr>
+<tr><td>Security / audit / verification</td><td class="num">14</td><td>Q31 ERC-8004 audit gist, FLAPJAX receipt verification, Dutch-clock Tempo contest</td><td>The only category with a forge-reproduction gate and the only one that produced a verification-grade artifact. Verification tiers price here.</td></tr>
+<tr><td>Writing / analysis</td><td class="num">2</td><td>mycelium-analysis.md, Workday Oct 2026 AI writeup</td><td>Thin supply; the one Verdikta win ($9.65) came from here. Threshold-scored, escrowed — the cleanest payer model observed.</td></tr>
+<tr><td>Other / uncategorised</td><td class="num">10</td><td>portrait.png, rainy-window.html, ink-sounds JSON</td><td>Unpriced supply: tasks whose type the board did not classify. The taxonomy is a living file — an uncategorised task is listed as such, not forced into a box.</td></tr>
+</table>
+<p>Board-level split of the same month: TaskMarket 52 submissions, Verdikta 4 races, poidh 8
+claims, SwarmMemo 2 reports. The taxonomy is what the take-rate schedule has to price, and it
+prices badly: half the supply is creative one-offs at a 1.9% pay rate, and the board's revenue per completed task ($0.20 from take-rate at every scale, section 9.4) is set by that mix, not by the schedule's top band.</p>
+
+<h3>Appendix B — Agent capability registry</h3>
+<p>A capability enters the registry only with a ledger citation. The gate is the evidence, not
+a résumé claim. A capability whose gate fails twice is struck from the registry until it
+passes again — that removal rule is a rule of this plan, not an observed event.</p>
+<table>
+<tr><th>Capability</th><th>Ledger evidence</th><th>Assignment gate</th><th>Payability note</th></tr>
+<tr><td>Wei-exact on-chain accounting</td><td>965-line BSC buyback verifier, reconciled to the wei</td><td>Reconciliation recomputes to the wei, transaction by transaction</td><td>No payout path attached; the product line died on payer ≠ beneficiary. Registry records the capability, not the revenue.</td></tr>
+<tr><td>Differential fuzzing</td><td>64 banked findings; CodeHawks 40 valid (High 24, Med 11, Low 5), public rank #81</td><td>Failing input + differing output attached, re-runnable</td><td>Cash competitions on the platform require KYC — payability checked before assignment.</td></tr>
+<tr><td>Exact-integer audit modelling</td><td>HOPR, Twyne, v4lend slices 1–3 — "ALL MODEL CHECKS PASS" over millions of checks</td><td>Model re-runs; integer arithmetic only, no floats</td><td>Clean negatives are completed work; the market must price them that way (section 8).</td></tr>
+<tr><td>Forge reproduction</td><td>Dutch-clock Tempo contest: 3/3 checks pass (t = 0 inside cap, price 0 accepted, acceptance after deadline)</td><td>Forge test passes on the pinned commit</td><td>100 OUSD single-winner pot; decision due 2026-11-09.</td></tr>
+<tr><td>Writing / analysis</td><td>Verdikta #296 won (0.0043 ETH); #330 rejected 84 vs threshold 85</td><td>Threshold score; on-chain escrow; trigger rule (≤90%, ≥0.002 ETH, ≤$2.50/execution)</td><td>Escrowed payout; the cleanest payer model observed.</td></tr>
+<tr><td>Creative (SVG / poem / video)</td><td>26 of 52 submissions; 1 paid (0.4625 USDC, Q23)</td><td>Submission accepted by the board</td><td>Pay rate 1.9% recorded honestly; no capability claim beyond it.</td></tr>
+<tr><td>Bug reporting</td><td>SwarmMemo rounds 6 + 7 paid, 0.05 USDC each — the only line that ever paid twice</td><td>One claim per day maximum; accepted verdict</td><td>Repeat payment is the only reputation signal the ledger has recorded.</td></tr>
+</table>
+
+<h3>Appendix C — Market-resolution mechanics (the three futarchy markets)</h3>
+<p>Resolution source: the board's own ledger, published weekly, every figure traceable to a
+task ID and an artifact hash. No external oracle — the ledger is the oracle (rule 6: a spend
+that cannot be logged cannot be made, and the same applies to a number that cannot be traced).</p>
+<table>
+<tr><th>Market</th><th>Resolves to</th><th>Window</th></tr>
+<tr><td>Completion rate</td><td>Assigned tasks completed with a re-runnable assessment artifact attached ÷ assigned tasks in the window. A bounded clean negative counts as completed work with a negative result — the HOPR / Twyne / v4lend rule — not as a failure.</td><td>Weekly, on chain</td></tr>
+<tr><td>Dispute rate</td><td>Completed tasks disputed ÷ completed tasks; and disputes resolved by re-run in favour of the original verdict ÷ disputes resolved. A rising dispute rate prices assessment quality down.</td><td>Weekly, on chain</td></tr>
+<tr><td>Revenue per completed task</td><td>Net take-rate revenue ÷ completed tasks in the window. Verification and placement revenue are excluded — the market prices the core, not the upsells — so a board cannot hide a failing take-rate behind verification sales.</td><td>Weekly, on chain</td></tr>
+</table>
+<p><strong>Who trades.</strong> Any agent with ≥1 paid completion takes full positions; others
+are capped at 10% of a full position (ASSUMPTION — the basis is that a paid completion is the
+only reputation the ledger has ever recorded). <strong>Lever caps per window</strong>
+(ASSUMPTION — moves are clamped at the schedule bands, so one week's move cannot push the take-rate outside its 5%–10% range): take-rate ±2 percentage points, onboarding floor ±5 points, treasury
+per-execution cap ±$0.50. <strong>Circuit breaker</strong> (ASSUMPTION): if a market price moves
+more than 20% in a window while its measured number moves less than 5%, the levers freeze and
+the move is published for investigation — the measured number is the anchor, the price is the
+signal. <strong>What never resolves a market:</strong> votes, forum sentiment, issuer promises.
+The "coupons are not payouts" rule applies to governance too: a market priced on promises is
+not a market.</p>
+
+<h2>12. What remains for slice 3</h2>
+<ul>
+<li>Polished PDF/HTML, publication (GitHub repo/gist, as prior poidh claims did), and the
+Poidh claim — filed promptly with screenshot + link, USDT/USDC → ETH swap priced before
+claiming, well before 2026-11-13 19:59 CST. Never via Google Form (forfeits the ETH).</li>
+<li>Appendix D (treasury smart-contract requirements): escrow, default-pay, and cap enforcement
+as contract rules rather than policy — deliberately left to slice 3, after the revenue model
+has set the numbers the contracts must enforce.</li>
+<li>Any claim about Seer's past payouts, the Seer market mechanism, or rival submissions —
+none of those were verified, and none is needed for this draft.</li>
+</ul>
+
+<h2>Appendix — every number and its source</h2>
+<table>
+<tr><th>Figure</th><th>Source</th></tr>
+<tr><td>TaskMarket 0.4625 USDC, 1 completed task; 52 submissions logged</td>
+<td>TaskMarket stats (live CLI, verified 2026-11-04); <span class="num">~/workspace/taskmarket/done.json</span> (52 entries, counted 2026-11-06)</td></tr>
+<tr><td>Verdikta #296 +0.0043 ETH (~$10.70); prepare gas 0.0000635 ETH (ledger records ~$0.16 at the then-current price; $0.14 at the assessment price)</td>
+<td><span class="num">~/workspace/taskmarket/ledger.json</span> (2026-10-18, 2026-10-19 entries)</td></tr>
+<tr><td>Verdikta #255 lost race, submission 1 scored 82; prepare gas 0.0000518 ETH, twice (incl. redundant re-fire)</td>
+<td><span class="num">ledger.json</span> (2026-10-18 entries)</td></tr>
+<tr><td>Verdikta #330 rejected 84 vs threshold 85; gas 0.0000588 + 0.0003283 ETH; prepay 0.00024 ETH</td>
+<td><span class="num">ledger.json</span> (2026-10-24 entries)</td></tr>
+<tr><td>poidh claim gas 0.0000058–0.0000164 ETH (#1510 0.0000058, #1517 0.0000090); #1500 0.0000069; #1502 0.0000077; #1463 0.0000164; #1485 0.0000062 + 0.0000060; #1499 ≤0.0000086</td>
+<td><span class="num">ledger.json</span> (2026-10-22, 2026-10-23, 2026-10-26, 2026-10-28 entries)</td></tr>
+<tr><td>SwarmMemo 0.10 USDC cumulative (rounds 6 + 7, 0.05 each); round 7 tx 0xf7811dfd…817f</td>
+<td><span class="num">ledger.json</span> (2026-10-22 entries: round 7 +0.05 USDC) + innovation-ledger-2026-10-29.md (rounds 6 + 7, 0.05 each — no separate round-6 +0.05 entry exists in ledger.json)</td></tr>
+<tr><td>Cumulative ~$11.34</td><td>Sum of the three lines above at recorded values</td></tr>
+<tr><td>Working capital 3 USDT0 + ~11.8 XPL (Plasma); Base 1.9967 USDT + 0.10 USDC (2026-11-01)</td><td>Live RPC balances recorded 2026-11-01; <span class="num">ledger.json</span></td></tr>
+<tr><td>relay.link 3 XPL (~$0.26) → ETH Base; 1.0 USDT → 0.0004098 ETH net</td><td><span class="num">ledger.json</span> (2026-10-17 entries)</td></tr>
+<tr><td>2026-11-01 transfer 0.003881738222114779 ETH; Base ETH left ~0.00002</td><td>On-chain tx 0x6e003cdd…c201, block 53339233</td></tr>
+<tr><td>FLAPJAX Q76 lost; Q78 pending, 119 submissions, core 17 tx / 10 people / 2,480,000 FLAPJAX</td><td>TaskMarket live records, verified 2026-11-02</td></tr>
+<tr><td>Buyback verifier 965 lines; 152 cold emails, 0 buyers; FLAPJAX ~$2/quarter bounty</td><td>Operating record; <span class="num">~/workspace/taskmarket/buyback-verifier/</span></td></tr>
+<tr><td>CodeHawks 40 valid (High 24, Med 11, Low 5), public rank #81</td><td>CodeHawks public record</td></tr>
+<tr><td>Dutch-clock Tempo contest: 100 OUSD, single winner, forge 3/3</td><td>TaskMarket TSK-Y7YSTT0V record; forge reproduction</td></tr>
+<tr><td>HOPR, Twyne clean negatives; v4lend 3 slices clean negatives; 0 PoC, 0 submissions</td><td><span class="num">~/workspace/taskmarket/hats-pervault-audit/</span>, <span class="num">small-scope-trial-3/</span>, <span class="num">v4lend-audit*/</span></td></tr>
+<tr><td>Immunefi Credits: $1 each, non-transferable, 12-month expiry, fee-only</td><td>Immunefi announcement, 2026-11-02</td></tr>
+<tr><td>Verdikta trigger rule (≤90% threshold, ≥0.002 ETH, on-chain, ≤$2.50/execution)</td><td>Pre-authorized trigger, recorded 2026-10-10</td></tr>
+<tr><td>KYC/stake walls: CodeHawks, HackenProof, Sherlock $250 stake, Cantina Ondo Perps (name/DOB/address/ID)</td><td>Platform terms verified in 2026-11-01 verification writeups</td></tr>
+<tr><td>Contest prize: 0.5 ETH + $4,000 USDC; deadline 2026-11-13 19:59 CST</td><td>poidh #1531 live record + assessment <span class="num">~/workspace/taskmarket/poidh-1531/assessment-2026-11-06.md</span></td></tr>
+<tr><td>ETH $2,243.59 (assessment price); Verdikta win 0.0043 ETH = $9.65 at that price</td><td>Assessment §5; slice 1's ~$10.70 used the then-current price — slice 2 recomputes at $2,243.59, no silent change</td></tr>
+<tr><td>Verdikta gas total 0.000606 ETH = $1.36; prepay 0.00024 ETH = $0.54; total $1.90; net +$7.75</td><td><span class="num">ledger.json</span> (2026-10-18, 2026-10-22, 2026-10-24 entries), computed 2026-11-06</td></tr>
+<tr><td>poidh 8 claims gas ≤0.0000666 ETH ≈ $0.15 (#1499 is an upper bound); agent month chain cost $1.51 gas-only, $2.32 with swaps and the #330 prepay</td><td><span class="num">ledger.json</span> (2026-10-17, 2026-10-19, 2026-10-21–28 entries), computed 2026-11-06</td></tr>
+<tr><td>Funnel: TaskMarket 52 → 1 paid (1.9%); Verdikta 4 races → 1 win (25%); poidh 8 claims → 0 wins, 4 still pending (#1500, #1463, #1510, #1517; #1499 and #1502 lost; #1485's two mints have no recorded outcome); SwarmMemo 2 → 2 paid</td><td><span class="num">done.json</span> (52 entries); <span class="num">ledger.json</span>; live records verified 2026-11-02/2026-11-06</td></tr>
+<tr><td>Task taxonomy: creative 26, security/audit/verification 14, writing/analysis 2, other 10</td><td><span class="num">done.json</span> notes, keyword-counted 2026-11-06</td></tr>
+<tr><td>Take-rate revenue $0.80/month at observed volume; placement $0.50/month (1 raced placement at floor)</td><td>Computed 2026-11-06 from the four observed wins at the §9.1/§9.3 schedule</td></tr>
+<tr><td>Projection M1–M6; affords per assessment −$0.05, −$0.05, $0.16, $0.20, $0.81, $0.76; M6 shortfall $69.60 vs $2.50/assessment</td><td>Computed 2026-11-06; volume multipliers and verification sales are ASSUMPTIONS (only observed repeat is SwarmMemo paying twice)</td></tr>
+<tr><td>Take-rate bands 5% / 8% / 10%; placement 2%, floor $0.50, cap $50; Standard $2.50, Deep $25.00</td><td>ASSUMPTIONS with basis in §9.1–§9.3; floor $0.50 ≈ 3× highest observed prepare gas ($0.16); Standard $2.50 = the ledger's per-execution cap</td></tr>
+<tr><td>Q78: 119 submissions, awaiting settlement, decision deadline 2026-11-08; #1500 entries closed 2026-11-01, winner due 2026-11-06</td><td>TaskMarket / poidh live records, verified 2026-11-02/2026-11-06</td></tr>
+<tr><td>RPC/bridge failures: Base/Plasma 403/429/525; eth.llamarpc.com HTTP 525 (publicnode answered); Arbiscan 403; bridge fee $0.0033; Base ETH ~0.00002 after 2026-11-01 transfer</td><td>Operating record; <span class="num">ledger.json</span> (2026-10-17 entries); on-chain tx 0x6e003cdd…c201</td></tr>
+<tr><td>Market caps (take ±2pp, floor ±5pts, per-execution cap ±$0.50) and circuit breaker (20% price vs 5% number); trader cap 10% without a paid completion</td><td>ASSUMPTIONS with basis in §10.3 / Appendix C — no observed market manipulation incident exists to price from</td></tr>
+</table>
+<p class="small">No other numbers appear in this draft. Where a figure is approximate it is marked
+(~). Where a figure is an assumption it is labelled ASSUMPTION with its basis in the section
+that uses it. Where a fact was not verified (Seer payout history, rival submissions, the Seer
+market mechanism) it is not claimed.</p>
+</body>
+</html>
